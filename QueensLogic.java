@@ -35,6 +35,7 @@ public class QueensLogic {
             for (int v : crossings(i, x))
                 bdd.andWith(fact.ithVar(i).imp(fact.nithVar(v)));
         }
+
         check();
     }
 
@@ -57,9 +58,7 @@ public class QueensLogic {
     }
 
     public void check() {
-
         int i = 0, j = 0;
-
         for (int k = 0; k < x * y; k++) {
             if (board[i][j] == 0) {
                 if (bdd.restrict(fact.nithVar(k)).isZero()) board[i][j] = 1;
