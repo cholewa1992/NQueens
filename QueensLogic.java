@@ -1,10 +1,3 @@
-/**
- * This class implements the logic behind the BDD for the n-queens problem
- * You should implement all the missing methods
- * 
- * @author Stavros Amanatidis
- *
- */
 import java.util.*;
 import net.sf.javabdd.*;
 
@@ -42,11 +35,11 @@ public class QueensLogic {
             for (int v : crossings(i, x))
                 bdd.andWith(fact.ithVar(i).imp(fact.nithVar(v)));
         }
+        check();
     }
 
    
     public int[][] getGameBoard() {
-        check();
         return board;
     }
 
@@ -57,12 +50,14 @@ public class QueensLogic {
         }
 
         board[column][row] = 1;
+        bdd.restrictWith(fact.ithVar(x*row + column));
         check();
 
         return true;
     }
 
     public void check() {
+
         int i = 0, j = 0;
 
         for (int k = 0; k < x * y; k++) {
